@@ -16,7 +16,7 @@ const textStyle = {
   margin: "0",
 };
 
-function StarRating({ maxRating = 5 }) {
+function StarRating({ maxRating = 5, message = [] }) {
   const [currentRating, setCurrentRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
 
@@ -33,14 +33,12 @@ function StarRating({ maxRating = 5 }) {
       />
     ); // same thing i can achieve with Array.from
   }
-
   function getDisplayRating() {
-    console.log("Hover Rating:", hoverRating);
-    console.log("Current Rating:", currentRating);
-
-    if (hoverRating) return hoverRating;
-    if (currentRating) return currentRating;
-    return "";
+    if (message && message.length === maxRating) {
+      const index = hoverRating ? hoverRating - 1 : currentRating - 1;
+      return index >= 0 ? message[index] : "";
+    }
+    return hoverRating || currentRating || "";
   }
 
   return (
